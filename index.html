@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <script>
+
+        firstNum = "";
+        secondNum = "";
+        operator = "";
+        currentInputField = "";
+        inputfield = document.getElementById("inputfield");
+        firstFlag = false;
+
+        /*const inputFIELD = document.querySelector("input");*/
+        //find out what this does later
+        //Remove Global variables and rewrite with locals.
+
+        function addOperator(setOperator){  
+            inputfield = document.getElementById("inputfield");
+            operator = setOperator;
+            firstFlag = true;
+            inputfield.setAttribute("value", setOperator);
+        }
+
+        function addNumber(num){ 
+            inputfield = document.getElementById("inputfield");
+            if (firstFlag){
+                secondNum += num;
+                inputfield.setAttribute("value", secondNum); //something wrong here stopping chained operations.
+            }else{
+                firstNum += num;
+                inputfield.setAttribute("value", firstNum);
+            }
+        }
+
+        //Find a way to make this one get the element from the current input field.
+
+        function addition(){
+            firstNum = parseInt(firstNum) + parseInt(secondNum);
+        }
+
+        function subtraction(){
+            firstNum = parseInt(firstNum) - parseInt(secondNum);
+        }
+
+        function multiplication(){
+            firstNum = parseInt(firstNum) * parseInt(secondNum);
+        }
+
+        function division(){
+            if (secondNum == 0){
+                console.log("Divides by zero.");
+            }else{
+                firstNum = ( parseInt(firstNum) / parseInt(secondNum) ).toFixed(2);
+            }
+        }
+
+        function clearDisplay(){
+            const inputfield = document.getElementById("inputfield")
+            firstFlag = false;
+            firstNum = "";
+            secondNum = "";
+            inputfield.setAttribute("value", "");
+        }
+
+        function calculate(){
+            if (firstNum && operator && secondNum){
+                if(operator == '+'){
+                    addition();
+                }else if(operator == '-'){
+                    subtraction();
+                }else if (operator == '*'){
+                    multiplication();
+                }else if (operator == '/'){
+                    division();
+                }else{
+                    console.log("What?");
+                }
+                const inputfield = document.getElementById("inputfield")
+                inputfield.setAttribute("value", String(firstNum));
+                secondNum = "";
+                console.log(firstNum);
+                console.log(operator);
+                console.log(secondNum);
+            }else{
+                console.log("Something's missing.");
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <h1 id="header">Calculator!</h1>
+    <form>
+        <input type="first" name="input" id="inputfield" value = "None">
+        <output name="outputfield" for="inputfield"></output>
+    </form>
+    <button  onclick = "addOperator(`+`)",  type="add">ADD</button>
+    <button  onclick = "addOperator(`-`)",  type="Subtract">SUBTRACT</button>
+    <button  onclick = "addOperator(`*`)",  type="Multiply">MULTIPLY</button>
+    <button  onclick = "addOperator(`/`)",  type="Divide">DIVIDE</button>
+    <button  onclick = "clearDisplay()" type="Clear">CLEAR</button>
+    <button  onclick = "calculate()" type="Calculate">CALCULATE</button>
+    <br>
+    <button  onclick = "addNumber(`1`)", type="1">1</button>
+    <button  onclick = "addNumber(`2`)", type="2">2</button>
+    <button  onclick = "addNumber(`3`)", type="3">3</button>
+    <br>
+    <button  onclick = "addNumber(`4`)", type="4">4</button>
+    <button  onclick = "addNumber(`5`)", type="5">5</button>
+    <button  onclick = "addNumber(`6`)", type="6">6</button>
+    <br>
+    <button  onclick = "addNumber(`7`)", type="7">7</button>
+    <button  onclick = "addNumber(`8`)", type="8">8</button>
+    <button  onclick = "addNumber(`9`)", type="9">9</button>
+    <br>
+    
+    <button  onclick = "addNumber(`0`)", type="0">0</button>
+
+</body>
+</html>
